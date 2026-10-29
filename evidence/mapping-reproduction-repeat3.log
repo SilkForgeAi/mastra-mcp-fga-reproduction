@@ -1,0 +1,53 @@
+
+ RUN  v4.1.12 <workspace>/work/mastra/packages/mcp
+
+ ❯ |unit:packages/mcp| src/server/__tests__/server-fga-revocation.test.ts (4 tests | 2 failed) 71ms
+     × executes a listed tool using the configured resource and permission mapping 11ms
+     × executes a listed tool using the configured resource and permission mapping 40ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |unit:packages/mcp| src/server/__tests__/server-fga-revocation.test.ts > MCP permission changes through direct execution > executes a listed tool using the configured resource and permission mapping
+Error: FGA authorization denied: user operator cannot tools:execute on tool:record
+ ❯ src/server/server.ts:1392:29
+    1390|       } catch (error) {
+    1391|         if (error instanceof MastraError && error.id === 'MCP_SERVER_T…
+    1392|         const mastraError = new MastraError(
+       |                             ^
+    1393|           {
+    1394|             id: 'MCP_SERVER_TOOL_EXECUTE_FAILED',
+ ❯ MCPServer.traceRequest src/server/server.ts:746:22
+ ❯ src/server/__tests__/server-fga-revocation.test.ts:81:24
+
+Caused by: FGADeniedError: FGA authorization denied: user operator cannot tools:execute on tool:record
+ ❯ MappedPolicy.require src/server/__tests__/server-fga-revocation.test.ts:27:50
+ ❯ requireFGA ../_internals/auth/dist/ee-CAe-UJ9n.js:718:2
+ ❯ CoreToolBuilder.requireToolExecuteFGA ../core/src/tools/tool-builder/builder.ts:629:5
+ ❯ Object.execute ../core/src/tools/tool-builder/builder.ts:958:7
+ ❯ MCPServer.runTool src/server/server.ts:933:20
+ ❯ src/server/server.ts:1372:27
+ ❯ MCPServer.traceRequest src/server/server.ts:746:22
+ ❯ src/server/__tests__/server-fga-revocation.test.ts:81:24
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
+Serialized Error: { user: { id: 'operator' }, resource: { type: 'tool', id: 'record' }, permission: 'tools:execute', status: 403 }
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL  |unit:packages/mcp| src/server/__tests__/server-fga-revocation.test.ts > MCP permission changes through http execution > executes a listed tool using the configured resource and permission mapping
+AssertionError: expected true not to be true // Object.is equality
+ ❯ src/server/__tests__/server-fga-revocation.test.ts:78:36
+     76|       if (client) {
+     77|         const result = await client.callTool({ name: 'record', argumen…
+     78|         expect(result.isError).not.toBe(true);
+       |                                    ^
+     79|         expect(result.structuredContent).toEqual({ recorded: true });
+     80|       } else {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  2 failed | 2 passed (4)
+   Start at  23:55:35
+   Duration  2.51s (transform 1.86s, setup 0ms, import 2.37s, tests 71ms, environment 0ms)
+

@@ -1,0 +1,12 @@
+
+ RUN  v4.1.12 <workspace>/work/mastra/packages/mcp
+
+MCP stdio handler error {
+  error: 'Error: Rejected 2025-era request on a modern-only stdio connection (modern-only-missing-envelope): Unsupported protocol version: 2025-11-25'
+}
+
+ Test Files  23 passed (23)
+      Tests  236 passed | 2 expected fail (238)
+   Start at  23:57:57
+   Duration  4.38s (transform 7.82s, setup 0ms, import 16.72s, tests 8.80s, environment 1ms)
+
